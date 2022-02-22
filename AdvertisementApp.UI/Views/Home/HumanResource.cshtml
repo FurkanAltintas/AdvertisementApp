@@ -1,0 +1,73 @@
+﻿@model List<AdvertisementListDto>
+
+@{
+    ViewData["Title"] = "HumanResource";
+}
+
+<div class="container" style="margin: 100px auto;">
+    <div class="accordion" id="accordionExample">
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-@Model[i].Id">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@Model[i].Id" aria-expanded="@(i==0 ? "true": null)" aria-controls="collapse-@Model[i].Id">
+                        @Model[i].Title
+                    </button>
+                </h2>
+                <div id="collapse-@Model[i].Id" class="accordion-collapse collapse" aria-labelledby="heading-@Model[i].Id" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        @Html.Raw(Model[i].Description)
+                        <div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-controller="Advertisement" asp-action="Send" asp-route-advertisementId="@Model[i].Id">Başvur</a>
+                            }
+                            else
+                            {
+                                <div class="alert alert-light text-center">
+                                    Başvuru yapabilmeniz için giriş yapmanız gerekmektedir
+                                    <br>
+                                    <a asp-controller="Account" asp-action="SignIn">Giriş Yap</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@* İlk Değer Açılarak Geliyor *@
+
+@*
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="heading-@Model[i].Id">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@Model[i].Id" aria-expanded="@(i==0 ? "true": null)" aria-controls="collapse-@Model[i].Id">
+    @Model[i].Title
+    </button>
+    </h2>
+    <div id="collapse-@Model[i].Id" class="accordion-collapse collapse @(i==0?"show":null)" aria-labelledby="heading-@Model[i].Id" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+    @Model[i].Description
+
+    <div>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <a asp-controller="Advertisement" asp-action="Send">Başvur</a>
+    }
+    else
+    {
+    <div class="alert alert-light text-center">
+    Başvuru yapabilmeniz için giriş yapmanız gerekmektedir
+    <br>
+    <a asp-controller="Account" asp-action="SignIn">Giriş Yap</a>
+    </div>
+    }
+    </div>
+    </div>
+    </div>
+    </div>
+*@

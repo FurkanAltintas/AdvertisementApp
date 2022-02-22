@@ -1,0 +1,46 @@
+﻿@model List<AdvertisementListDto>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container" style="margin: 100px auto;">
+    <div class="text-end mb-2">
+        <a asp-action="Create" asp-controller="Application" class="btn btn-outline-secondary btn-sm">Yeni İlan Oluştur</a>
+    </div>
+    <table class="table table-sm table-dark table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <td>İlan Adı</td>
+                <td>İlanın Oluşturulma Tarihi</td>
+                <td>İlanın Durumu</td>
+                <td>İşlem</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var advertisement in Model)
+                {
+                    <tr>
+                        <td>@advertisement.Title</td>
+                        <td>@advertisement.CreatedDate.ToString("dd/MM/yyyy")</td>
+                        <td>@(advertisement.Status ? "Aktif" : "Pasif")</td>
+                        <td>
+                            <a asp-controller="Application" asp-action="Update" asp-route-id="@advertisement.Id" class="btn btn-outline-success btn-sm">Güncelle</a>
+                            <a asp-controller="Application" asp-action="Remove" asp-route-id="@advertisement.Id" class="btn btn-outline-danger btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="text-center">İlan bulunmamaktadır</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>

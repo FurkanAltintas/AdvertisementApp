@@ -1,0 +1,44 @@
+﻿@model UserCreateModel
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<div style="margin: 100px auto;">
+    <form asp-controller="Account" asp-action="SignUp" method="post" class="p-4 w-75 mx-auto">
+        <div class="form-group mb-3">
+            <label>Adınız :</label>
+            <input asp-for="Firstname" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label>Soyadınız :</label>
+            <input asp-for="Surname" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label>Kullanıcı Adınız :</label>
+            <input asp-for="UserName" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label>Telefon Numaranız :</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <select asp-for="GenderId" asp-items="Model.Genders" class="form-select">
+                <option value="0">Bir cinsiyet seçiniz</option>
+            </select>
+        </div>
+        <div class="form-group mb-3">
+            <label>Şifreniz :</label>
+            <input asp-for="Password" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label>Şifre Tekrar :</label>
+            <input asp-for="ConfirmPassword" class="form-control" />
+        </div>
+        <div class="form-group mb-3 text-end">
+            <button type="submit" class="btn btn-outline-dark">Kayıt Ol</button>
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
+    </form>
+</div>

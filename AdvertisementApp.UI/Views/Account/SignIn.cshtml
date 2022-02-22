@@ -1,0 +1,67 @@
+﻿@model AppUserLoginDto
+
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+<div style="margin: 100px auto;">
+    <form asp-controller="Account" asp-action="SignIn" method="post" class="p-4 w-75 mx-auto">
+        <div class="form-group mb-3">
+            <label>Kullanıcı Adınız :</label>
+            <input asp-for="UserName" class="form-control" />
+            <code id="username-text" class="text-danger" style="display:none;">Kullanıcı Adı Arasında Boşluk Olamaz !!!</code>
+        </div>
+        <div class="form-group mb-3">
+            <label>Şifreniz :</label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <code id="warning-text" class="text-danger" style="display: none; animation: blinker 2s linear infinite;">Caps Lock Açık</code>
+        </div>
+        <div class="form-check">
+            <input asp-for="RememberMe" class="form-check-input" />
+            <label asp-for="RememberMe" class="form-check-label">
+                Beni Hatırla
+            </label>
+        </div>
+        <div class="form-group mb-3 text-end">
+            <button type="submit" class="btn btn-outline-dark">Giriş Yap</button>
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
+    </form>
+</div>
+
+@section css {
+<style>
+    @@keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+</style>
+}
+
+@section script {
+<script>
+    //var username = document.getElementById("UserName");
+    //var usernameText = document.getElementById("username-text");
+
+    //username.addEventListener("keyup", function(event) {
+    //    if (event.keyCode == 32) {
+    //        usernameText.style.display = "block";
+    //    } else {
+    //        usernameText.style.display = "none";
+    //    }
+    //})
+
+    var password = document.getElementById("Password");
+    var warningText = document.getElementById("warning-text");
+
+    password.addEventListener("keyup", function(event) {
+        if (event.getModifierState("CapsLock")) {
+            warningText.style.display = "block";
+        } else {
+            warningText.style.display = "none";
+        }
+    })
+</script>
+}

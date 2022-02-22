@@ -1,0 +1,56 @@
+﻿@model List<AdvertisementAppUserListDto>
+
+@{
+    ViewData["Title"] = "ApprovedList";
+}
+
+<div class="container" style="margin: 100px auto;">
+    <div class="text-end mb-2">
+        <a asp-action="List" asp-controller="Advertisement" class="btn btn-outline-secondary btn-sm">Yeni Başvurular</a>
+        <a asp-action="RejectedList" asp-controller="Advertisement" class="btn btn-outline-warning btn-sm">Reddedilen Başvurular</a>
+    </div>
+    <table class="table table-sm table-dark table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <td>Başvurulan İlan</td>
+                <td>Başvuran Kişi</td>
+                <td>Başvuranın Cinsiyeti</td>
+                <td>Başvurunun Durumu</td>
+                <td>Askerlik Durumu</td>
+                <td>Tecil Bitiş Tarihi</td>
+                <td>İş Deneyimi</td>
+                <td>Cv</td>
+                <td>İşlem</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var advertisementAppUser in Model)
+                {
+                    <tr>
+                        <td>@advertisementAppUser.Advertisement.Title</td>
+                        <td>@advertisementAppUser.AppUser.Firstname @advertisementAppUser.AppUser.Surname</td>
+                        <td>@advertisementAppUser.AppUser.Gender.Definition</td>
+                        <td>@advertisementAppUser.AdvertisementAppUserStatus.Definition</td>
+                        <td>@advertisementAppUser.MilitaryStatus.Definition</td>
+                        <td>@(advertisementAppUser.EndDate==null?"Muaf ya da yapmış":advertisementAppUser.EndDate.Value.ToString("dd/MM/yyyy"))</td>
+                        <td>@advertisementAppUser.WorkExperience</td>
+                        <td><a href="/cvFiles/@advertisementAppUser.CvPath" target="_blank" download>Cv İndir</a></td>
+                        <td>
+                            <a asp-controller="Advertisement" asp-action="SetStatus" asp-route-advertisementAppUserId="@advertisementAppUser.Id" asp-route-type="@((int)AdvertisementAppUserStatusType.Olumsuz)" class="btn btn-outline-danger btn-sm">Reddet</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="text-center">Başvuru bulunmamaktadır</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>

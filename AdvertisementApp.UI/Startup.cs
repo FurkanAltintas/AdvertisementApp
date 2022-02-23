@@ -50,6 +50,7 @@ namespace AdvertisementApp.UI
             var profiles = ProfileHelper.GetProfiles();
             profiles.Add(new UserCreateModelProfile());
             profiles.Add(new AdvertisementAppUserProfile());
+            profiles.Add(new UserInfoProfile());
 
 
             var configuration = new MapperConfiguration(opt =>

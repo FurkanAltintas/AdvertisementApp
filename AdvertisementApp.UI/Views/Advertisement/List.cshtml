@@ -2,13 +2,16 @@
 
 @{
     ViewData["Title"] = "List";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var type = Context.Request.Query["type"].ToString(); // query üzerinden gelen type bilgisini aldık
+    string outline = "-outline";
 }
 
 <div class="container" style="margin: 100px auto;">
     <div class="text-end mb-2">
-        <a asp-action="ApprovedList" asp-controller="Advertisement" class="btn btn-outline-secondary btn-sm">Mülakata Çağrılan Başvurular</a>
-        <a asp-action="RejectedList" asp-controller="Advertisement" class="btn btn-outline-warning btn-sm">Reddedilen Başvurular</a>
+        <a asp-action="List" asp-controller="Advertisement" class="btn btn@(type  == AdvertisementAppUserStatusType.Basvurdu.ToString("d") || type == "" ? null : "-outline")-danger btn-sm">Başvurular</a>
+        <a asp-action="List" asp-controller="Advertisement" asp-route-type="@((int)AdvertisementAppUserStatusType.Mulakat)" class="btn btn@(type == AdvertisementAppUserStatusType.Mulakat.ToString("d") ? null : outline)-secondary btn-sm">Mülakata Çağrılan Başvurular</a>
+        <a asp-action="List" asp-controller="Advertisement" asp-route-type="@((int)AdvertisementAppUserStatusType.Olumsuz)" class="btn btn@(type == AdvertisementAppUserStatusType.Olumsuz.ToString("d") ? null : "-outline")-warning btn-sm">Reddedilen Başvurular</a>
     </div>
     <table class="table table-sm table-dark table-bordered table-hover table-striped">
         <thead>

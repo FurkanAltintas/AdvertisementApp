@@ -12,6 +12,7 @@ It is an Agency Project Made for Learning Asp.Net Core N Tier.
 - Fluent Validation
 - Code First
 - Dto (Data Transfer Object)
+- Enum
 
 ### Project Images
 ------------
